@@ -1,0 +1,114 @@
+.article {
+    width: 100%;
+    height: 600px;
+    border-radius: 3px;
+    margin: 24px;
+    padding: 24px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.articleProfile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    padding: 8px;
+}
+
+.articleTitle {
+    margin: 0;
+    color: rgb(24, 144, 255);
+    font-weight: 700;
+}
+
+.articleSubtitle {
+    color: rgb(24, 144, 255);
+}
+
+.bio,
+.articleText {
+    color: rgba(0, 0, 0, 0.65)
+}
+
+.textWrap {
+    margin: 0;
+    color: #000;
+    font-weight: 700;
+}
+
+.articleDate {
+    margin: 0;
+    color: rgb(24, 144, 255);
+    font-weight: 700;
+}
+
+.articleBody {
+    font-weight: 700;
+    color: rgb(24, 144, 255);
+}
+
+.articleContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px 24px 50px;
+}
+
+.tagList {
+    display: flex;
+    color: rgb(24, 144, 255);
+    font-weight: 700;
+}
+
+.tag {
+    font-weight: 700;
+    margin-left: 8px;
+    color: rgba(0, 0, 0, 0.65);
+    margin-bottom: 0;
+}
+
+.footer {
+    min-width: 300px;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.likes {
+    color: rgb(24, 144, 255);
+    cursor: pointer;
+}
+
+.lineUpFooter {
+    min-width: 400px;
+    max-width: 500px;
+    width: 100%;
+    border-bottom: 1px solid #000;
+    margin: 8px 0;
+}
+
+.footerLikes {
+    margin: 0;
+}
+
+.btnsWrap {}
+
+.btnDelete {
+    margin-left: 4px;
+    background: #fff;
+    color: rgb(24, 144, 255);
+    cursor: pointer;
+    border: none;
+}
+
+.btnDelete:focus {
+    outline: none;
+}

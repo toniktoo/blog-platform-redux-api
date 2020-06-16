@@ -1,0 +1,51 @@
+.home {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    padding: 12px 24px 24px 24px;
+}
+
+.articlesWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.articlesCreateLink {
+    display: flex;
+    align-items: center;
+}
+
+.articlesCreateLinkText {
+    margin: 0 8px 0 0;
+    color: rgb(24, 144, 255);
+    ;
+}
+
+.loaderWrap {
+    position: fixed;
+    top: 50%;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination {
+    width: 100%;
+    height: 40px;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    z-index: 10;
+    padding-bottom: 24px;
+}
