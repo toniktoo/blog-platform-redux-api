@@ -44,7 +44,7 @@ const ComponentEditArticle = ({
     setTimeout(() => {
       setIsEditSuccess(false);
       window.history.back();
-    }, 2000);
+    }, 1000);
   };
 
   const renderForm = (handleSubmit) => {

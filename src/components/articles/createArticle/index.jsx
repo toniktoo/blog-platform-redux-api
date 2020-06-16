@@ -26,7 +26,7 @@ const handleCreateArticle = async (values, token, setIsCreateArticle) => {
 
     await setTimeout(() => {
       setIsCreateArticle(false);
-    }, 2000);
+    }, 1000);
   } catch (error) {
     console.log(error);
   }
@@ -58,8 +58,11 @@ const CreateArticle = ({ token }) => {
                 name="tagList"
                 placeholder="write tags with a space..."
               />
-
-              <Input type="submit" value="Create" />
+              <Input
+                type="submit"
+                value="Create"
+                style={{ marginTop: '8px' }}
+              />
             </>
           )}
         </div>
@@ -71,13 +74,13 @@ const CreateArticle = ({ token }) => {
     <div>
       <Formik
         initialValues={{
-          title: 'dasd',
-          description: 'dasdsda',
-          body: 'asdasd',
-          tagList: 'asdasd',
+          title: '',
+          description: '',
+          body: '',
+          tagList: '',
         }}
         validationSchema={() => schema}
-        onSubmit={(values, { setFieldError, resetForm }) => {
+        onSubmit={(values, { resetForm }) => {
           handleCreateArticle(values, token, setIsCreateArticle);
           resetForm();
           setIsCreateArticle(true);
