@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/blog-platform-redux-api/static/css/main.de10dc72.chunk.css",
-    "main.js": "/blog-platform-redux-api/static/js/main.e8a2cdb8.chunk.js",
-    "main.js.map": "/blog-platform-redux-api/static/js/main.e8a2cdb8.chunk.js.map",
+    "main.js": "/blog-platform-redux-api/static/js/main.657ac2a8.chunk.js",
+    "main.js.map": "/blog-platform-redux-api/static/js/main.657ac2a8.chunk.js.map",
     "runtime-main.js": "/blog-platform-redux-api/static/js/runtime-main.dfafd817.js",
     "runtime-main.js.map": "/blog-platform-redux-api/static/js/runtime-main.dfafd817.js.map",
     "static/css/2.a2026422.chunk.css": "/blog-platform-redux-api/static/css/2.a2026422.chunk.css",
     "static/js/2.1ad71249.chunk.js": "/blog-platform-redux-api/static/js/2.1ad71249.chunk.js",
     "static/js/2.1ad71249.chunk.js.map": "/blog-platform-redux-api/static/js/2.1ad71249.chunk.js.map",
     "index.html": "/blog-platform-redux-api/index.html",
-    "precache-manifest.f843dd3f9ce2a461a8fcdc3972f3cc67.js": "/blog-platform-redux-api/precache-manifest.f843dd3f9ce2a461a8fcdc3972f3cc67.js",
+    "precache-manifest.e2ffbc0352dcb6d822dbdd860a1b7b3b.js": "/blog-platform-redux-api/precache-manifest.e2ffbc0352dcb6d822dbdd860a1b7b3b.js",
     "service-worker.js": "/blog-platform-redux-api/service-worker.js",
     "static/css/2.a2026422.chunk.css.map": "/blog-platform-redux-api/static/css/2.a2026422.chunk.css.map",
     "static/css/main.de10dc72.chunk.css.map": "/blog-platform-redux-api/static/css/main.de10dc72.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.a2026422.chunk.css",
     "static/js/2.1ad71249.chunk.js",
     "static/css/main.de10dc72.chunk.css",
-    "static/js/main.e8a2cdb8.chunk.js"
+    "static/js/main.657ac2a8.chunk.js"
   ]
 }
