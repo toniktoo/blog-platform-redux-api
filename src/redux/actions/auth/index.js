@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { fetchSignIn, fetchSignUp } from '../../../api/auth/index';
+import { fetchSignInApi, fetchSignUpApi } from '../../../api/auth/index';
 import {
   setItemDB,
   errorsSignInProcessing,
@@ -23,7 +23,7 @@ export const signUpAuth = ({
     const data = {
       user: { email, password, username },
     };
-    const response = await fetchSignUp(data);
+    const response = await fetchSignUpApi(data);
     const token = await response.data.user.token;
     const name = await response.data.user.username;
 
@@ -37,10 +37,8 @@ export const signUpAuth = ({
 
     await dispatch(
       signUpUserSuccess({
-        isAuth: true,
-        isLoadingAuth: false,
-        token,
-        name,
+        currentUser,
+        isFirstValidate: true,
       })
     );
   } catch (error) {
@@ -71,7 +69,7 @@ export const signInAuth = ({
     const data = {
       user: { email, password, username },
     };
-    const response = await fetchSignIn(data);
+    const response = await fetchSignInApi(data);
     const token = await response.data.user.token;
     const name = await response.data.user.username;
 
@@ -83,7 +81,7 @@ export const signInAuth = ({
     };
     setItemDB('currentUser', currentUser);
 
-    await dispatch(
+    dispatch(
       signInUserSuccess({
         currentUser,
         isFirstValidate: true,

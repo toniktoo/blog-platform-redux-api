@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import routes from '../../../constants/routes.constants/index';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest }) => (
   <Route
@@ -9,7 +10,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest }) => (
       isAuth || localStorage.currentUser ? (
         <Component {...props} />
       ) : (
-        <Redirect to="/sign-in" />
+        <Redirect to={routes['sign-in']} />
       )
     }
   />

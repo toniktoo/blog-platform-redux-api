@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const URL = 'https://conduit.productionready.io/api';
+import { URL } from '../../constants/url.constants/index';
 
 const optionsWithoutToken = {
   method: 'POST',
@@ -14,25 +13,32 @@ const headersWithToken = (token) => ({
   Authorization: `Token ${token}`,
 });
 
-export const fetchGetAllArticlesWithoutToken = async (currentPage) => {
+export const fetchAllArticlesWithoutTokenApi = async (
+  currentPage,
+  limitCount
+) => {
   const response = await axios({
     ...optionsWithoutToken,
     method: 'GET',
-    url: `${URL}/articles?limit=10&offset=${(currentPage - 1) * 10}`,
+    url: `${URL}/articles?limit=${limitCount}&offset=${(currentPage - 1) * 10}`,
   });
   return response;
 };
 
-export const fetchGetAllArticlesWithToken = async (token, currentPage) => {
+export const fetchAllArticlesWithTokenApi = async (
+  token,
+  currentPage,
+  limitCount
+) => {
   const response = await axios({
     method: 'GET',
-    url: `${URL}/articles?limit=10&offset=${(currentPage - 1) * 10}`,
+    url: `${URL}/articles?limit=${limitCount}&offset=${(currentPage - 1) * 10}`,
     headers: headersWithToken(token),
   });
   return response;
 };
 
-export const fetchGetArticle = async (slug, token) => {
+export const fetchArticleApi = async (slug, token) => {
   const response = await axios({
     method: 'GET',
     url: `${URL}/articles/${slug}`,
@@ -41,16 +47,7 @@ export const fetchGetArticle = async (slug, token) => {
   return response;
 };
 
-export const fetchGetArticle2 = async (path, token) => {
-  const response = await axios({
-    method: 'GET',
-    url: `${URL}/${path}`,
-    headers: headersWithToken(token),
-  });
-  return response;
-};
-
-export const fetchCreateArticle = async (data, token) => {
+export const createArticleApi = async (data, token) => {
   const response = await axios({
     method: 'POST',
     url: `${URL}/articles`,
@@ -61,7 +58,7 @@ export const fetchCreateArticle = async (data, token) => {
 };
 
 // like and dislike
-export const fetchSetLikeArticle = async (slug, token) => {
+export const setLikeArticleApi = async (slug, token) => {
   const response = await axios({
     method: 'POST',
     url: `${URL}/articles/${slug}/favorite`,
@@ -70,7 +67,7 @@ export const fetchSetLikeArticle = async (slug, token) => {
   return response;
 };
 
-export const fetchSetDislikeArticle = async (slug, token) => {
+export const setDislikeArticleApi = async (slug, token) => {
   const response = await axios({
     method: 'DELETE',
     url: `${URL}/articles/${slug}/favorite`,
@@ -81,7 +78,7 @@ export const fetchSetDislikeArticle = async (slug, token) => {
 
 // get one article with pathname
 
-export const fetchGetArticlePathNameWithToken = async (pathname, token) => {
+export const fetchArticlePathNameWithTokenApi = async (pathname, token) => {
   const response = await axios({
     method: 'GET',
     url: `${URL}${pathname}`,
@@ -89,7 +86,7 @@ export const fetchGetArticlePathNameWithToken = async (pathname, token) => {
   });
   return response;
 };
-export const fetchGetArticlePathName = async (pathname) => {
+export const fetchArticlePathNameApi = async (pathname) => {
   const response = await axios({
     method: 'GET',
     url: `${URL}${pathname}`,
@@ -100,7 +97,7 @@ export const fetchGetArticlePathName = async (pathname) => {
   return response;
 };
 
-export const fetchUpdateArticle = async (path, token, data) => {
+export const updateArticleApi = async (path, token, data) => {
   const response = await axios({
     method: 'PUT',
     url: `${URL}${path}`,
@@ -110,7 +107,7 @@ export const fetchUpdateArticle = async (path, token, data) => {
   return response;
 };
 
-export const fetchDeleteArticle = async (pathname, token) => {
+export const deleteArticleApi = async (pathname, token) => {
   const response = await axios({
     method: 'DELETE',
     url: `${URL}${pathname}`,

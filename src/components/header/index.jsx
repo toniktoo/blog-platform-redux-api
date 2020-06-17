@@ -6,6 +6,7 @@ import { ExportOutlined, HomeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { logout } from '../../redux/actions/auth/index';
 import { removeItemDB } from '../../utils/index';
+import routes from '../../constants/routes.constants/index';
 
 const Header = ({ isAuth, dispatch, username }) => {
   const handleLogout = () => {
@@ -16,6 +17,7 @@ const Header = ({ isAuth, dispatch, username }) => {
         isLoadingAuth: false,
         name: null,
         token: null,
+        isFirstValidate: true,
       })
     );
   };
@@ -30,7 +32,7 @@ const Header = ({ isAuth, dispatch, username }) => {
       );
     } else {
       return (
-        <Link to="/sign-in" className={styles.linkUser}>
+        <Link to={routes['sign-in']} className={styles.linkUser}>
           <span className={styles.linkUserText}>Sign in</span>
           <HomeOutlined />
         </Link>

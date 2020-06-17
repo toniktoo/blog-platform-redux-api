@@ -17,8 +17,9 @@ import ArticleInfo from './components/articles/article/index';
 import ComponentEditArticle from './components/articles/edit/index';
 import PrivateRoute from './components/routes/private/index';
 import AuthRoute from './components/routes/auth/index';
+import routes from './constants/routes.constants/index';
 
-const App = ({ isAuth, dispatch, errors }) => {
+const App = ({ dispatch, token }) => {
   //при монтировании проверяем вышел ли пользователь из профиля в прошлый раз
   useEffect(() => {
     dispatch(firstValidateUserRequest());
@@ -30,34 +31,34 @@ const App = ({ isAuth, dispatch, errors }) => {
     } else {
       dispatch(firstValidateUserFailure({ isFirstValidate: true }));
     }
-  }, [dispatch]);
+  }, [dispatch, token]);
 
   return (
     <div className="app">
       <Header />
       <div className="content">
         <Switch>
-          <Route path="/" exact component={Home} />
-          <AuthRoute path="/sign-in" component={FormSignIn} />
-          <AuthRoute path="/sign-up" component={FormSignUp} />
-          <PrivateRoute path="/add" component={CreateArticle} />
+          <Route path={routes['home']} exact component={Home} />
+          <AuthRoute path={routes['sign-in']} component={FormSignIn} />
+          <AuthRoute path={routes['sign-up']} component={FormSignUp} />
+          <PrivateRoute path={routes['add']} component={CreateArticle} />
           <PrivateRoute
-            path="/articles/:slug/edit"
+            path={routes['article-edit']}
             exact
             component={ComponentEditArticle}
           />
-          <Route path="/articles/:slug" exact component={ArticleInfo} />
-          <Redirect to="/sign-in" />
+          <Route path={routes['article-info']} exact component={ArticleInfo} />
+          <Redirect to={routes['home']} />
         </Switch>
       </div>
-      {errors ? <ModalError errors={errors} /> : null}
+      <ModalError />
     </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   isAuth: state.reducerAuth.currentUser.isAuth,
-  errors: state.reducerErrors.errors,
+  token: state.reducerAuth.currentUser.token,
 });
 
 export default connect(mapStateToProps)(App);

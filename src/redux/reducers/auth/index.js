@@ -37,8 +37,9 @@ export const reducerAuth = handleActions(
     },
     [signUpUserSuccess]: (
       state,
-      { payload: { isAuth, token, name, isLoadingAuth } }
+      { payload: { currentUser, isFirstValidate } }
     ) => {
+      const { isAuth, token, name, isLoadingAuth } = currentUser;
       return {
         ...state,
         currentUser: {
@@ -46,6 +47,7 @@ export const reducerAuth = handleActions(
           username: name,
           token,
           isLoadingAuth,
+          isFirstValidate,
         },
       };
     },
@@ -99,7 +101,7 @@ export const reducerAuth = handleActions(
     },
 
     // log-out
-    [logout]: (state, { payload: { isAuth, isLoadingAuth, token, name } }) => {
+    [logout]: (state, { payload: { isAuth, isLoadingAuth, token, name, isFirstValidate } }) => {
       return {
         ...state,
         currentUser: {
@@ -107,6 +109,7 @@ export const reducerAuth = handleActions(
           username: name,
           token,
           isLoadingAuth,
+          isFirstValidate,
         },
       };
     },

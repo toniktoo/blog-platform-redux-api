@@ -1,11 +1,12 @@
 import { createAction } from 'redux-actions';
+import { uniqueId } from 'lodash';
 import {
-  fetchGetAllArticlesWithToken,
-  fetchGetAllArticlesWithoutToken,
-  fetchSetLikeArticle,
-  fetchSetDislikeArticle,
-  fetchGetArticlePathNameWithToken,
-  fetchGetArticlePathName,
+  fetchAllArticlesWithTokenApi,
+  fetchAllArticlesWithoutTokenApi,
+  setLikeArticleApi,
+  setDislikeArticleApi,
+  fetchArticlePathNameWithTokenApi,
+  fetchArticlePathNameApi,
 } from '../../../api/articles/index';
 import { setErrorNetwork } from '../errors';
 
@@ -13,25 +14,35 @@ export const getArticlesAllRequest = createAction('GET_ARTICLES_ALL_REQUEST');
 export const getArticlesAllSuccess = createAction('GET_ARTICLES_ALL_SUCCESS');
 export const getArticlesAllFailure = createAction('GET_ARTICLES_ALL_FAILURE');
 
-export const getAllArticles = (isAuth, token, currentPage) => async (
-  dispatch
-) => {
-  await dispatch(getArticlesAllRequest({ isLoadingArticles: true }));
-  let responseArticles = undefined;
+export const getAllArticles = (
+  isAuth,
+  token,
+  currentPage,
+  limitCount
+) => async (dispatch) => {
+  dispatch(getArticlesAllRequest({ isLoadingArticles: true }));
+  let responseArticles = null;
   try {
     if (isAuth) {
-      responseArticles = await fetchGetAllArticlesWithToken(token, currentPage);
+      responseArticles = await fetchAllArticlesWithTokenApi(
+        token,
+        currentPage,
+        limitCount
+      );
     } else {
-      responseArticles = await fetchGetAllArticlesWithoutToken(currentPage);
+      responseArticles = await fetchAllArticlesWithoutTokenApi(
+        currentPage,
+        limitCount
+      );
     }
 
     const articlesWithId = responseArticles.data.articles.map(
       (item, index) => ({
-        id: index,
+        id: uniqueId(),
         ...item,
       })
     );
-    await dispatch(
+    dispatch(
       getArticlesAllSuccess({
         isLoadingArticles: false,
         articles: articlesWithId,
@@ -42,37 +53,11 @@ export const getAllArticles = (isAuth, token, currentPage) => async (
     if (error.message === 'Network Error') {
       dispatch(setErrorNetwork({ error }));
     }
-    await dispatch(getArticlesAllFailure({ isLoadingArticles: false }));
+    dispatch(getArticlesAllFailure({ isLoadingArticles: false }));
   }
 
   return responseArticles.data.articlesCount;
 };
-
-// create article
-
-// export const articleCreateRequest = createAction('ARTICLE_CREATE_REQUEST');
-// export const articleCreateSuccess = createAction('ARTICLE_CREATE_SUCCESS');
-// export const articleCreateFailure = createAction('ARTICLE_CREATE_FAILURE');
-
-// export const handleCreateArticle = (values, token) => async (dispatch) => {
-//   await dispatch(articleCreateRequest());
-//   try {
-//     const valuesNewArticle = {
-//       ...values,
-//       tagList: [...values]
-//     };
-//     console.log(values)
-//     await fetchCreateArticle(values, token);
-//     await dispatch(articleCreateSuccess());
-//   } catch (error) {
-//     if (error.message === 'Network Error') {
-//       dispatch(setErrorNetwork({ error }));
-//     }
-//     await dispatch(articleCreateFailure());
-//   }
-// };
-
-//like and dislike
 
 export const articleLikeRequest = createAction('ARTICLE_LIKE_REQUEST');
 export const articleLikeSuccess = createAction('ARTICLE_LIKE_SUCCESS');
@@ -85,26 +70,26 @@ export const articleDislikeFailure = createAction('ARTICLE_DISLIKE_FAILURE');
 export const setLikeArticle = (isLike, slug, token) => async (dispatch) => {
   if (isLike) {
     //если лайк поставлен- то его нужно убрать
-    await dispatch(articleDislikeRequest({ isLoadingLike: true }));
+    dispatch(articleDislikeRequest({ isLoadingLike: true }));
     try {
-      const responseArticle = await fetchSetDislikeArticle(slug, token);
+      const responseArticle = await setDislikeArticleApi(slug, token);
       const newArticle = responseArticle.data.article;
-      await dispatch(
+      dispatch(
         articleDislikeSuccess({ newArticle, slug, isLoadingLike: false })
       );
     } catch (error) {
       if (error.message === 'Network Error') {
         dispatch(setErrorNetwork({ error }));
       }
-      await dispatch(articleDislikeFailure({ isLoadingLike: false }));
+      dispatch(articleDislikeFailure({ isLoadingLike: false }));
     }
   } else {
     //усли лайка нет - то его нужно поставить
-    await dispatch(articleLikeRequest());
+    dispatch(articleLikeRequest());
     try {
-      const responseArticle = await fetchSetLikeArticle(slug, token);
+      const responseArticle = await setLikeArticleApi(slug, token);
       const newArticle = responseArticle.data.article;
-      await dispatch(articleLikeSuccess({ newArticle, slug }));
+      dispatch(articleLikeSuccess({ newArticle, slug }));
     } catch (error) {
       if (error.message === 'Network Error') {
         dispatch(setErrorNetwork({ error }));
@@ -121,17 +106,20 @@ export const articleSuccess = createAction('ARTICLE_SUCCESS');
 export const articleFailure = createAction('ARTICLE_FAILURE');
 
 export const getArticle = (path, token, isAuth) => async (dispatch) => {
-  await dispatch(articleRequest({ isLoadingArticles: true }));
+  dispatch(articleRequest({ isLoadingArticles: true }));
   try {
     let articleResponse = null;
     if (isAuth) {
-      articleResponse = await fetchGetArticlePathNameWithToken(path, token);
+      articleResponse = await fetchArticlePathNameWithTokenApi(path, token);
     } else {
-      articleResponse = await fetchGetArticlePathName(path);
+      articleResponse = await fetchArticlePathNameApi(path);
     }
     const article = articleResponse.data.article;
-    await dispatch(articleSuccess({ isLoadingArticles: false, article }));
+    dispatch(articleSuccess({ isLoadingArticles: false, article }));
   } catch (error) {
-    await dispatch(articleFailure({ isLoadingArticles: false }));
+    if (error.message === 'Network Error') {
+      dispatch(setErrorNetwork({ error }));
+    }
+    dispatch(articleFailure({ isLoadingArticles: false }));
   }
 };

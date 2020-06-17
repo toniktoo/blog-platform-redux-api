@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { Input } from 'antd';
 import { connect } from 'react-redux';
 import { FormInput, FormArea } from '../../formFields/index';
-import { fetchCreateArticle } from '../../../api/articles/index';
+import { createArticleApi } from '../../../api/articles/index';
 import { ModalSuccess } from '../../modal/index';
 
 const schema = yup.object().shape({
@@ -22,9 +22,9 @@ const handleCreateArticle = async (values, token, setIsCreateArticle) => {
     },
   };
   try {
-    await fetchCreateArticle(data, token);
+    await createArticleApi(data, token);
 
-    await setTimeout(() => {
+    setTimeout(() => {
       setIsCreateArticle(false);
     }, 1000);
   } catch (error) {

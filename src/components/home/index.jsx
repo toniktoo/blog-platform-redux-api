@@ -6,6 +6,7 @@ import { DiffOutlined, LoadingOutlined } from '@ant-design/icons';
 import { Pagination } from 'antd';
 import ArticleItem from '../articles/item/index';
 import { getAllArticles } from '../../redux/actions/articles/index';
+import routes from '../../constants/routes.constants/index';
 
 const Home = ({
   isLoadingArticles,
@@ -22,7 +23,12 @@ const Home = ({
   const onChangeCurrentPage = (page) => setCurrentPage(page);
   useEffect(() => {
     const getArticles = async () => {
-      const articlesCount = await getAllArticles(isAuth, token, currentPage);
+      const articlesCount = await getAllArticles(
+        isAuth,
+        token,
+        currentPage,
+        10
+      );
       await setArticlesCount(articlesCount);
     };
     if (isFirstValidate) {
@@ -50,7 +56,7 @@ const Home = ({
     <div className={styles.home}>
       <div className={styles.articlesHeader}>
         <h2 className={styles.articlesTitle}>Articles List:</h2>
-        <Link to="/add" className={styles.articlesCreateLink}>
+        <Link to={routes['add']} className={styles.articlesCreateLink}>
           <h3 className={styles.articlesCreateLinkText}>Create article</h3>
           <DiffOutlined />
         </Link>

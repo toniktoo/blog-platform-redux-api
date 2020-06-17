@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getFormatedDate } from '../../../utils';
 import { getArticle } from '../../../redux/actions/articles';
 import { Link } from 'react-router-dom';
-import { fetchDeleteArticle } from '../../../api/articles';
+import { deleteArticleApi } from '../../../api/articles';
 
 const ArticleInfo = ({
   token,
@@ -30,7 +30,7 @@ const ArticleInfo = ({
 
   const handleDeleteArticle = () => {
     const pathname = location.pathname;
-    fetchDeleteArticle(pathname, token);
+    deleteArticleApi(pathname, token);
     history.goBack();
   };
 

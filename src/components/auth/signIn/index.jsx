@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { UserAddOutlined, LoadingOutlined } from '@ant-design/icons';
 import { FormInput } from '../../formFields/index';
 import { signInAuth } from '../../../redux/actions/auth';
+import routes from '../../../constants/routes.constants/index';
 
 const FormSignIn = (props) => {
   const renderForm = (handleSubmit) => {
@@ -37,7 +38,7 @@ const FormSignIn = (props) => {
           />
           <div className={styles.btnsWrap}>
             <Input type="submit" value="Sign in" style={{ width: '100px' }} />
-            <Link to="/sign-up" className="linkWithImageRigth">
+            <Link to={routes['sign-up']} className="linkWithImageRigth">
               <span className='linkWithImageRigthText'>Registration</span>
               <UserAddOutlined />
             </Link>

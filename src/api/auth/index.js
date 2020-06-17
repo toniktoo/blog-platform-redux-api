@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const URL = 'https://conduit.productionready.io/api';
+import { URL } from '../../constants/url.constants/index';
 
 const optionsAuth = {
   method: 'POST',
@@ -10,7 +9,7 @@ const optionsAuth = {
   json: true,
 };
 
-export const fetchSignUp = async (data) => {
+export const fetchSignUpApi = async (data) => {
   const response = await axios({
     ...optionsAuth,
     data: JSON.stringify(data),
@@ -19,7 +18,7 @@ export const fetchSignUp = async (data) => {
   return response;
 };
 
-export const fetchSignIn = async (data) => {
+export const fetchSignInApi = async (data) => {
   const response = await axios({
     ...optionsAuth,
     data: JSON.stringify(data),

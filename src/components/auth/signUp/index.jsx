@@ -5,9 +5,10 @@ import { Input } from 'formik-antd';
 import * as yup from 'yup';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { UserAddOutlined,LoadingOutlined  } from '@ant-design/icons';
+import { UserAddOutlined, LoadingOutlined } from '@ant-design/icons';
 import { FormInput } from '../../formFields/index';
 import { signUpAuth } from '../../../redux/actions/auth';
+import routes from '../../../constants/routes.constants/index';
 
 const FormSignUp = (props) => {
   const renderForm = (handleSubmit) => {
@@ -43,7 +44,7 @@ const FormSignUp = (props) => {
           />
           <div className={styles.btnsWrap}>
             <Input type="submit" value="Sign in" style={{ width: '100px' }} />
-            <Link to="/sign-in" className="linkWithImageRigth">
+            <Link to={routes['sign-in']} className="linkWithImageRigth">
               <span className="linkWithImageRigthText">Login</span>
               <UserAddOutlined />
             </Link>

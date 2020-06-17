@@ -7,9 +7,13 @@ import { connect } from 'react-redux';
 import { LoadingOutlined } from '@ant-design/icons';
 import { FormInput } from '../../formFields/index';
 import { getArticle } from '../../../redux/actions/articles';
-import { fetchUpdateArticle } from '../../../api/articles';
+import { updateArticleApi } from '../../../api/articles';
 import _ from 'lodash';
 import { ModalSuccess } from '../../modal/index';
+import {
+  useHistory,
+  useRouteMatch,
+} from 'react-router-dom';
 
 const ComponentEditArticle = ({
   isLoadingArticles,
@@ -17,15 +21,18 @@ const ComponentEditArticle = ({
   token,
   isAuth,
   getArticle,
+  isFirstValidate,
 }) => {
   const { title, description, body, tagList } = article;
   const [isEditSuccess, setIsEditSuccess] = useState(false);
-
+  const history = useHistory();
+  const match = useRouteMatch('/articles/:slug');
   useEffect(() => {
-    let path = window.location.pathname;
-    path = path.substr(0, path.length - 5);
-    getArticle(path, token, isAuth);
-  }, [token, isAuth, getArticle]);
+    if (isFirstValidate) {
+      let path = match.url;
+      getArticle(path, token, isAuth);
+    }
+  }, [token, isAuth, getArticle, isFirstValidate]);
 
   const handleEditArticle = (values) => {
     const valuesWithoutEmptyFields = _.omitBy(
@@ -39,11 +46,11 @@ const ComponentEditArticle = ({
       },
     };
     let path = window.location.pathname;
-    path = path.substr(0, path.length - 5);
-    fetchUpdateArticle(path, token, data);
+    path = match.url;
+    updateArticleApi(path, token, data);
     setTimeout(() => {
       setIsEditSuccess(false);
-      window.history.back();
+      history.goBack();
     }, 1000);
   };
 
@@ -119,6 +126,7 @@ const ComponentEditArticle = ({
 
 const mapStateToProps = (state) => ({
   isLoadingAuth: state.reducerAuth.currentUser.isLoadingAuth,
+  isFirstValidate: state.reducerAuth.currentUser.isFirstValidate,
   token: state.reducerAuth.currentUser.token,
   isAuth: state.reducerAuth.currentUser.isAuth,
   isLoadingArticles: state.reducerArticles.isLoadingArticles,

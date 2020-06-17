@@ -5,7 +5,7 @@ import { Popover } from 'antd';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { getFormatedDate } from '../../../utils/index';
 import styles from './Article.module.css';
-import { fetchGetArticle } from '../../../api/articles/index';
+import { fetchArticleApi } from '../../../api/articles/index';
 import { setLikeArticle } from '../../../redux/actions/articles/index';
 
 const ArticleItem = ({
@@ -26,7 +26,7 @@ const ArticleItem = ({
   const handleLikeArticle = async (event) => {
     event.preventDefault();
     try {
-      const res = await fetchGetArticle(slug, token);
+      const res = await fetchArticleApi(slug, token);
       const isLike = res.data.article.favorited;
       setLikeArticle(isLike, slug, token);
       //чтобы не ждать ответа с сервера , сразу меняем ui
