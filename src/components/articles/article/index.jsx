@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import { deleteArticleApi } from '../../../api/articles';
 
 const ArticleInfo = ({
-  token,
   username,
   isAuth,
   isFirstValidate,
@@ -24,13 +23,13 @@ const ArticleInfo = ({
   useEffect(() => {
     const path = location.pathname;
     if (isFirstValidate) {
-      getArticle(path, token, isAuth);
+      getArticle(path, isAuth);
     }
-  }, [location, getArticle, token, isAuth, isFirstValidate]);
+  }, [location, getArticle, isAuth, isFirstValidate]);
 
   const handleDeleteArticle = () => {
     const pathname = location.pathname;
-    deleteArticleApi(pathname, token);
+    deleteArticleApi(pathname);
     history.goBack();
   };
 
@@ -120,7 +119,6 @@ const mapStateToProps = (state) => ({
   article: state.reducerArticles.article,
   author: state.reducerArticles.article.author,
   isLoadingArticles: state.reducerArticles.isLoadingArticles,
-  token: state.reducerAuth.currentUser.token,
   isAuth: state.reducerAuth.currentUser.isAuth,
   username: state.reducerAuth.currentUser.username,
   isFirstValidate: state.reducerAuth.currentUser.isFirstValidate,

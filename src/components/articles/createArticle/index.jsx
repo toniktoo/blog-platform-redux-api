@@ -14,7 +14,7 @@ const schema = yup.object().shape({
   tagList: yup.string(),
 });
 
-const handleCreateArticle = async (values, token, setIsCreateArticle) => {
+const handleCreateArticle = async (values, setIsCreateArticle) => {
   const data = {
     article: {
       ...values,
@@ -22,7 +22,7 @@ const handleCreateArticle = async (values, token, setIsCreateArticle) => {
     },
   };
   try {
-    await createArticleApi(data, token);
+    await createArticleApi(data);
 
     setTimeout(() => {
       setIsCreateArticle(false);
@@ -32,7 +32,7 @@ const handleCreateArticle = async (values, token, setIsCreateArticle) => {
   }
 };
 
-const CreateArticle = ({ token }) => {
+const CreateArticle = () => {
   const [isCreateArticle, setIsCreateArticle] = useState(false);
   const renderForm = (handleSubmit) => {
     return (
@@ -81,7 +81,7 @@ const CreateArticle = ({ token }) => {
         }}
         validationSchema={() => schema}
         onSubmit={(values, { resetForm }) => {
-          handleCreateArticle(values, token, setIsCreateArticle);
+          handleCreateArticle(values, setIsCreateArticle);
           resetForm();
           setIsCreateArticle(true);
         }}
@@ -94,7 +94,5 @@ const CreateArticle = ({ token }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  token: state.reducerAuth.currentUser.token,
-});
+const mapStateToProps = (state) => ({});
 export default connect(mapStateToProps)(CreateArticle);

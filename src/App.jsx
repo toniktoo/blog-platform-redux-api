@@ -18,8 +18,19 @@ import ComponentEditArticle from './components/articles/edit/index';
 import PrivateRoute from './components/routes/private/index';
 import AuthRoute from './components/routes/auth/index';
 import routes from './constants/routes.constants/index';
+import axios from 'axios';
 
-const App = ({ dispatch, token }) => {
+const App = ({ dispatch, token, isAuth }) => {
+  useEffect(() => {
+    axios.defaults.headers.post['Content-Type'] =
+      'application/json;charset=utf-8';
+    if (isAuth) {
+      axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+      return;
+    }
+    delete axios.defaults.headers.common['Authorization'];
+  }, [isAuth, token]);
+
   //при монтировании проверяем вышел ли пользователь из профиля в прошлый раз
   useEffect(() => {
     dispatch(firstValidateUserRequest());
@@ -31,7 +42,7 @@ const App = ({ dispatch, token }) => {
     } else {
       dispatch(firstValidateUserFailure({ isFirstValidate: true }));
     }
-  }, [dispatch, token]);
+  }, [dispatch]);
 
   return (
     <div className="app">

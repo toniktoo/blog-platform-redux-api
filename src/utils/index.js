@@ -4,9 +4,7 @@ import {
   differenceInDays,
   parseISO,
 } from 'date-fns';
-import {
-  setErrorNetwork,
-} from '../redux/actions/errors';
+import { setErrorNetwork } from '../redux/actions/errors';
 
 // local database
 
@@ -65,6 +63,7 @@ export const getFormatedDate = (date) => {
 
 export const errorsSignInProcessing = (error, setFieldError, dispatch) => {
   if (error.message === 'Network Error') {
+    console.log(error);
     dispatch(setErrorNetwork({ error }));
   }
   const responseErrors = error.response.data.errors;

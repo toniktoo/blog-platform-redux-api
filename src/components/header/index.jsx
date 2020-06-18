@@ -7,9 +7,11 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../redux/actions/auth/index';
 import { removeItemDB } from '../../utils/index';
 import routes from '../../constants/routes.constants/index';
+import axios from 'axios';
 
 const Header = ({ isAuth, dispatch, username }) => {
   const handleLogout = () => {
+    delete axios.defaults.headers.common['Authorization'];
     removeItemDB('currentUser');
     dispatch(
       logout({

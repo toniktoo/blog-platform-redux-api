@@ -6,7 +6,7 @@ import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { getFormatedDate } from '../../../utils/index';
 import styles from './Article.module.css';
 import { fetchArticleApi } from '../../../api/articles/index';
-import { setLikeArticle } from '../../../redux/actions/articles/index';
+import { toggleLikeArticle } from '../../../redux/actions/articles/index';
 
 const ArticleItem = ({
   title,
@@ -16,26 +16,15 @@ const ArticleItem = ({
   favoritesCount,
   slug,
   favorited,
-  setLikeArticle,
-  token,
+  toggleLikeArticle,
   isAuth,
 }) => {
-  const [isLikeLocal, setIsLikeLocal] = useState(favorited);
-  const [isLikeCountLocal, setIsLikeCountLocal] = useState(favoritesCount);
-
   const handleLikeArticle = async (event) => {
     event.preventDefault();
     try {
-      const res = await fetchArticleApi(slug, token);
+      const res = await fetchArticleApi(slug);
       const isLike = res.data.article.favorited;
-      setLikeArticle(isLike, slug, token);
-      //чтобы не ждать ответа с сервера , сразу меняем ui
-      setIsLikeLocal(!favorited);
-      if (favorited) {
-        setIsLikeCountLocal((count) => count - 1);
-      } else {
-        setIsLikeCountLocal((count) => count + 1);
-      }
+      toggleLikeArticle(isLike, slug);
     } catch (error) {
       console.log(`error component article ${error}`);
     }
@@ -76,8 +65,8 @@ const ArticleItem = ({
               className={styles.likes}
               onClick={handleLikeArticle}
             >
-              {isLikeLocal ? <HeartFilled /> : <HeartOutlined />}
-              {` ${isLikeCountLocal}`}
+              {favorited ? <HeartFilled /> : <HeartOutlined />}
+              {` ${favoritesCount}`}
             </Popover>
           </div>
         </div>
@@ -86,4 +75,4 @@ const ArticleItem = ({
   );
 };
 
-export default connect(null, { setLikeArticle })(ArticleItem);
+export default connect(null, { toggleLikeArticle })(ArticleItem);

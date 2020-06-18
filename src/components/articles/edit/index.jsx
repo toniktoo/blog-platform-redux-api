@@ -10,10 +10,7 @@ import { getArticle } from '../../../redux/actions/articles';
 import { updateArticleApi } from '../../../api/articles';
 import _ from 'lodash';
 import { ModalSuccess } from '../../modal/index';
-import {
-  useHistory,
-  useRouteMatch,
-} from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 const ComponentEditArticle = ({
   isLoadingArticles,
@@ -30,9 +27,9 @@ const ComponentEditArticle = ({
   useEffect(() => {
     if (isFirstValidate) {
       let path = match.url;
-      getArticle(path, token, isAuth);
+      getArticle(path, isAuth);
     }
-  }, [token, isAuth, getArticle, isFirstValidate]);
+  }, [isAuth, getArticle, isFirstValidate]);
 
   const handleEditArticle = (values) => {
     const valuesWithoutEmptyFields = _.omitBy(

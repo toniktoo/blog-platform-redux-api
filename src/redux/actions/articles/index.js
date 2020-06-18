@@ -23,6 +23,7 @@ export const getAllArticles = (
   dispatch(getArticlesAllRequest({ isLoadingArticles: true }));
   let responseArticles = null;
   try {
+    console.log(isAuth);
     if (isAuth) {
       responseArticles = await fetchAllArticlesWithTokenApi(
         token,
@@ -67,12 +68,12 @@ export const articleDislikeRequest = createAction('ARTICLE_DISLIKE_REQUEST');
 export const articleDislikeSuccess = createAction('ARTICLE_DISLIKE_SUCCESS');
 export const articleDislikeFailure = createAction('ARTICLE_DISLIKE_FAILURE');
 
-export const setLikeArticle = (isLike, slug, token) => async (dispatch) => {
+export const toggleLikeArticle = (isLike, slug) => async (dispatch) => {
   if (isLike) {
     //если лайк поставлен- то его нужно убрать
     dispatch(articleDislikeRequest({ isLoadingLike: true }));
     try {
-      const responseArticle = await setDislikeArticleApi(slug, token);
+      const responseArticle = await setDislikeArticleApi(slug);
       const newArticle = responseArticle.data.article;
       dispatch(
         articleDislikeSuccess({ newArticle, slug, isLoadingLike: false })
@@ -87,7 +88,7 @@ export const setLikeArticle = (isLike, slug, token) => async (dispatch) => {
     //усли лайка нет - то его нужно поставить
     dispatch(articleLikeRequest());
     try {
-      const responseArticle = await setLikeArticleApi(slug, token);
+      const responseArticle = await setLikeArticleApi(slug);
       const newArticle = responseArticle.data.article;
       dispatch(articleLikeSuccess({ newArticle, slug }));
     } catch (error) {
@@ -105,12 +106,12 @@ export const articleRequest = createAction('ARTICLE_REQUEST');
 export const articleSuccess = createAction('ARTICLE_SUCCESS');
 export const articleFailure = createAction('ARTICLE_FAILURE');
 
-export const getArticle = (path, token, isAuth) => async (dispatch) => {
+export const getArticle = (path, isAuth) => async (dispatch) => {
   dispatch(articleRequest({ isLoadingArticles: true }));
   try {
     let articleResponse = null;
     if (isAuth) {
-      articleResponse = await fetchArticlePathNameWithTokenApi(path, token);
+      articleResponse = await fetchArticlePathNameWithTokenApi(path);
     } else {
       articleResponse = await fetchArticlePathNameApi(path);
     }
