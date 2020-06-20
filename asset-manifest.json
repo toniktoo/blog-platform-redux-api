@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/blog-platform-redux-api/static/css/main.b1b7e38f.chunk.css",
-    "main.js": "/blog-platform-redux-api/static/js/main.3969ea6b.chunk.js",
-    "main.js.map": "/blog-platform-redux-api/static/js/main.3969ea6b.chunk.js.map",
+    "main.css": "/blog-platform-redux-api/static/css/main.050155c4.chunk.css",
+    "main.js": "/blog-platform-redux-api/static/js/main.f942c47e.chunk.js",
+    "main.js.map": "/blog-platform-redux-api/static/js/main.f942c47e.chunk.js.map",
     "runtime-main.js": "/blog-platform-redux-api/static/js/runtime-main.dfafd817.js",
     "runtime-main.js.map": "/blog-platform-redux-api/static/js/runtime-main.dfafd817.js.map",
     "static/css/2.a2026422.chunk.css": "/blog-platform-redux-api/static/css/2.a2026422.chunk.css",
-    "static/js/2.1d1eaa57.chunk.js": "/blog-platform-redux-api/static/js/2.1d1eaa57.chunk.js",
-    "static/js/2.1d1eaa57.chunk.js.map": "/blog-platform-redux-api/static/js/2.1d1eaa57.chunk.js.map",
+    "static/js/2.49629f42.chunk.js": "/blog-platform-redux-api/static/js/2.49629f42.chunk.js",
+    "static/js/2.49629f42.chunk.js.map": "/blog-platform-redux-api/static/js/2.49629f42.chunk.js.map",
     "index.html": "/blog-platform-redux-api/index.html",
-    "precache-manifest.82f416f329cb217ddaa1799c2503aa44.js": "/blog-platform-redux-api/precache-manifest.82f416f329cb217ddaa1799c2503aa44.js",
+    "precache-manifest.a3d77bb8a547fe4e972ad0d84a825954.js": "/blog-platform-redux-api/precache-manifest.a3d77bb8a547fe4e972ad0d84a825954.js",
     "service-worker.js": "/blog-platform-redux-api/service-worker.js",
     "static/css/2.a2026422.chunk.css.map": "/blog-platform-redux-api/static/css/2.a2026422.chunk.css.map",
-    "static/css/main.b1b7e38f.chunk.css.map": "/blog-platform-redux-api/static/css/main.b1b7e38f.chunk.css.map",
-    "static/js/2.1d1eaa57.chunk.js.LICENSE.txt": "/blog-platform-redux-api/static/js/2.1d1eaa57.chunk.js.LICENSE.txt"
+    "static/css/main.050155c4.chunk.css.map": "/blog-platform-redux-api/static/css/main.050155c4.chunk.css.map",
+    "static/js/2.49629f42.chunk.js.LICENSE.txt": "/blog-platform-redux-api/static/js/2.49629f42.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.dfafd817.js",
     "static/css/2.a2026422.chunk.css",
-    "static/js/2.1d1eaa57.chunk.js",
-    "static/css/main.b1b7e38f.chunk.css",
-    "static/js/main.3969ea6b.chunk.js"
+    "static/js/2.49629f42.chunk.js",
+    "static/css/main.050155c4.chunk.css",
+    "static/js/main.f942c47e.chunk.js"
   ]
 }
