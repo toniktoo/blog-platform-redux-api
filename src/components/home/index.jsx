@@ -10,26 +10,20 @@ import routes from '../../constants/routes.constants/index';
 
 const Home = ({
   isLoadingArticles,
+  countArticles,
   articles,
   getAllArticles,
   isAuth,
   token,
   isFirstValidate,
 }) => {
-  const [articlesCount, setArticlesCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesCountOnPage] = useState(10);
 
   const onChangeCurrentPage = (page) => setCurrentPage(page);
   useEffect(() => {
     const getArticles = async () => {
-      const articlesCount = await getAllArticles(
-        isAuth,
-        token,
-        currentPage,
-        10
-      );
-      await setArticlesCount(articlesCount);
+      await getAllArticles(currentPage, 10);
     };
     if (isFirstValidate) {
       getArticles();
@@ -66,7 +60,7 @@ const Home = ({
         <Pagination
           defaultCurrent={1}
           currentPage={currentPage}
-          total={articlesCount || 10}
+          total={countArticles || 10}
           pageSize={articlesCountOnPage}
           showSizeChanger={false}
           onChange={onChangeCurrentPage}
@@ -79,6 +73,7 @@ const Home = ({
 const mapStateToProp = (state) => ({
   isLoadingArticles: state.reducerArticles.isLoadingArticles,
   articles: state.reducerArticles.articles,
+  countArticles: state.reducerArticles.countArticles,
   isAuth: state.reducerAuth.currentUser.isAuth,
   token: state.reducerAuth.currentUser.token,
   isFirstValidate: state.reducerAuth.currentUser.isFirstValidate,

@@ -2,17 +2,9 @@ import {
   differenceInMinutes,
   differenceInHours,
   differenceInDays,
+  diffDate,
   parseISO,
 } from 'date-fns';
-import { setErrorNetwork } from '../redux/actions/errors';
-
-// local database
-
-export const setItemDB = (nameItem, valueItem) =>
-  localStorage.setItem(nameItem, JSON.stringify(valueItem));
-export const removeItemDB = (nameItem) => localStorage.removeItem(nameItem);
-
-export const getItemDB = (valueItem) => JSON.parse(localStorage[valueItem]);
 
 // date
 
@@ -57,30 +49,4 @@ export const getFormatedDate = (date) => {
   };
 
   return renderTimeAfterCreation();
-};
-
-// errors auth
-
-export const errorsSignInProcessing = (error, setFieldError, dispatch) => {
-  if (error.message === 'Network Error') {
-    console.log(error);
-    dispatch(setErrorNetwork({ error }));
-  }
-  const responseErrors = error.response.data.errors;
-
-  if (responseErrors['email or password']) {
-    setFieldError('email', 'email or password is invalid');
-    setFieldError('password', 'email or password is invalid');
-  }
-};
-
-export const errorsSignUpProcessing = (error, setFieldError, dispatch) => {
-  if (error.message === 'Network Error') {
-    dispatch(setErrorNetwork({ error }));
-  }
-
-  const responseErrors = error.response.data.errors;
-  for (const key in responseErrors) {
-    setFieldError(key.toString(), responseErrors[key][0]);
-  }
 };

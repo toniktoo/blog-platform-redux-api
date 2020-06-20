@@ -5,13 +5,12 @@ import { connect } from 'react-redux';
 import { ExportOutlined, HomeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { logout } from '../../redux/actions/auth/index';
-import { removeItemDB } from '../../utils/index';
+import { removeItemDB } from '../../utils/localDB';
 import routes from '../../constants/routes.constants/index';
 import axios from 'axios';
 
 const Header = ({ isAuth, dispatch, username }) => {
   const handleLogout = () => {
-    delete axios.defaults.headers.common['Authorization'];
     removeItemDB('currentUser');
     dispatch(
       logout({

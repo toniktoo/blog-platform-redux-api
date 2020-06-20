@@ -1,6 +1,31 @@
 import axios from 'axios';
 import { URL } from '../../constants/url.constants/index';
 
+axios.interceptors.request.use(function (config) {
+  console.log('REQUEST SEND');
+  config.headers.post['Content-Type'] = 'application/json;charset=utf-8';
+  if (localStorage.currentUser) {
+    config.headers.Authorization = `Token ${
+      JSON.parse(localStorage.currentUser).token
+    }`;
+  }
+  return config;
+});
+
+axios.interceptors.response.use(undefined, (error) => {
+  if (error.message === 'Network Error' && !error.response) {
+    console.log('ОШИБКА');
+  }
+});
+
+export const fetchAllArticlesApi = async (currentPage, limitCount) => {
+  const response = await axios({
+    method: 'GET',
+    url: `${URL}/articles?limit=${limitCount}&offset=${(currentPage - 1) * 10}`,
+  });
+  return response;
+};
+
 export const fetchArticleApi = async (slug) => {
   const response = await axios({
     method: 'GET',
@@ -52,22 +77,6 @@ export const fetchArticlePathNameApi = async (pathname) => {
   return response;
 };
 
-export const fetchAllArticlesWithTokenApi = async (
-  token,
-  currentPage,
-  limitCount
-) => {
-  const response = await axios({
-    method: 'GET',
-    url: `${URL}/articles?limit=${limitCount}&offset=${(currentPage - 1) * 10}`,
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8',
-      Authorization: `Token ${token}`,
-    },
-  });
-  return response;
-};
-
 export const updateArticleApi = async (path, data) => {
   const response = await axios({
     method: 'PUT',
@@ -81,17 +90,6 @@ export const deleteArticleApi = async (pathname) => {
   const response = await axios({
     method: 'DELETE',
     url: `${URL}${pathname}`,
-  });
-  return response;
-};
-
-export const fetchAllArticlesWithoutTokenApi = async (
-  currentPage,
-  limitCount
-) => {
-  const response = await axios({
-    method: 'GET',
-    url: `${URL}/articles?limit=${limitCount}&offset=${(currentPage - 1) * 10}`,
   });
   return response;
 };

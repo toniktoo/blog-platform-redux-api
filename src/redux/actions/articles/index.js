@@ -1,8 +1,7 @@
 import { createAction } from 'redux-actions';
 import { uniqueId } from 'lodash';
 import {
-  fetchAllArticlesWithTokenApi,
-  fetchAllArticlesWithoutTokenApi,
+  fetchAllArticlesApi,
   setLikeArticleApi,
   setDislikeArticleApi,
   fetchArticlePathNameWithTokenApi,
@@ -14,29 +13,11 @@ export const getArticlesAllRequest = createAction('GET_ARTICLES_ALL_REQUEST');
 export const getArticlesAllSuccess = createAction('GET_ARTICLES_ALL_SUCCESS');
 export const getArticlesAllFailure = createAction('GET_ARTICLES_ALL_FAILURE');
 
-export const getAllArticles = (
-  isAuth,
-  token,
-  currentPage,
-  limitCount
-) => async (dispatch) => {
+export const getAllArticles = (currentPage, limitCount) => async (dispatch) => {
   dispatch(getArticlesAllRequest({ isLoadingArticles: true }));
   let responseArticles = null;
   try {
-    console.log(isAuth);
-    if (isAuth) {
-      responseArticles = await fetchAllArticlesWithTokenApi(
-        token,
-        currentPage,
-        limitCount
-      );
-    } else {
-      responseArticles = await fetchAllArticlesWithoutTokenApi(
-        currentPage,
-        limitCount
-      );
-    }
-
+    responseArticles = await fetchAllArticlesApi(currentPage, limitCount);
     const articlesWithId = responseArticles.data.articles.map(
       (item, index) => ({
         id: uniqueId(),
@@ -47,6 +28,7 @@ export const getAllArticles = (
       getArticlesAllSuccess({
         isLoadingArticles: false,
         articles: articlesWithId,
+        countArticles: responseArticles.data.articlesCount,
       })
     );
   } catch (error) {
@@ -56,8 +38,6 @@ export const getAllArticles = (
     }
     dispatch(getArticlesAllFailure({ isLoadingArticles: false }));
   }
-
-  return responseArticles.data.articlesCount;
 };
 
 export const articleLikeRequest = createAction('ARTICLE_LIKE_REQUEST');

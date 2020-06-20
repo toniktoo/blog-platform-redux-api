@@ -23,7 +23,6 @@ const handleCreateArticle = async (values, setIsCreateArticle) => {
   };
   try {
     await createArticleApi(data);
-
     setTimeout(() => {
       setIsCreateArticle(false);
     }, 1000);

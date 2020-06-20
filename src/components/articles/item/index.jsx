@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Popover } from 'antd';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
-import { getFormatedDate } from '../../../utils/index';
+import { getFormatedDate } from '../../../utils/date';
 import styles from './Article.module.css';
 import { fetchArticleApi } from '../../../api/articles/index';
 import { toggleLikeArticle } from '../../../redux/actions/articles/index';

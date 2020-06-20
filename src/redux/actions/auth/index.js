@@ -1,10 +1,10 @@
 import { createAction } from 'redux-actions';
 import { fetchSignInApi, fetchSignUpApi } from '../../../api/auth/index';
+import { setItemDB } from '../../../utils/localDB';
 import {
-  setItemDB,
   errorsSignInProcessing,
   errorsSignUpProcessing,
-} from '../../../utils/index';
+} from '../../../utils/errors';
 
 export const signUpUserRequest = createAction('USER_SIGNUP_REQUEST');
 export const signUpUserSuccess = createAction('USER_SIGNUP_SUCCESS');

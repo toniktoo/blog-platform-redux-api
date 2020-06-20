@@ -17,6 +17,7 @@ import {
 const initValues = {
   articles: [],
   isLoadingArticles: false,
+  countArticles: null,
   article: {
     title: '',
     createdAt: '',
@@ -43,11 +44,12 @@ export const reducerArticles = handleActions(
     }),
     [getArticlesAllSuccess]: (
       state,
-      { payload: { isLoadingArticles, articles } }
+      { payload: { isLoadingArticles, articles, countArticles } }
     ) => ({
       ...state,
       isLoadingArticles,
       articles,
+      countArticles,
     }),
     [getArticlesAllFailure]: (state, { payload: { isLoadingArticles } }) => ({
       ...state,
@@ -92,7 +94,7 @@ export const reducerArticles = handleActions(
       return {
         ...state,
         isLoadingArticles,
-        article
+        article,
       };
     },
     [articleFailure]: (state, { payload: { isLoadingArticles } }) => {

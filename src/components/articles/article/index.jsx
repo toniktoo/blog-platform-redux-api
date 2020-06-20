@@ -3,7 +3,7 @@ import styles from './ArticleInfo.module.css';
 import { Avatar, Button } from 'antd';
 import { LoadingOutlined, DeleteFilled, EditFilled } from '@ant-design/icons';
 import { connect } from 'react-redux';
-import { getFormatedDate } from '../../../utils';
+import { getFormatedDate } from '../../../utils/date';
 import { getArticle } from '../../../redux/actions/articles';
 import { Link } from 'react-router-dom';
 import { deleteArticleApi } from '../../../api/articles';
